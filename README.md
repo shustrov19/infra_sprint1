@@ -73,9 +73,42 @@ STATIC_URL = 'static_backend'
 ```
 STATIC_ROOT = BASE_DIR / 'static_backend'
 ```
+6. Соберите статику бэкенд-приложения:
+```
+python3 manage.py collectstatic
+```
 7. Скопируйте директорию static_backend/ в директорию /var/www/kittygram/:
 ```
 sudo cp -r путь_к_директории_с_бэкендом/static_backend /var/www/kittygram
+```
+8. В директории проекта создайте файл .env и запишите в него переменную SECRET_KEY из infra_sprint1/backend/kittygram_backend/settings.py в формате ключ=значение:
+```
+SECRET_KEY=<secret_key из settings.py>
+```
+
+Чтобы поместить переменные из этого файла в пространство переменных окружения — понадобится библиотека python-dotenv; установите её через pip:
+```
+(venv) ... pip install python-dotenv 
+```
+Из этой библиотеки импортируйте в код в settings.py и выполните функцию load_dotenv():
+```
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+...
+```
+Файл .env должен лежать в той же директории, что и исполняемый файл manage.py. 
+9. Чтобы фотографии котиков отображались на сайте, создайте директорию media в директории /var/www/kittygram/. Django-приложение будет использовать эту директорию для хранения картинок.
+10. В settings.py для константы MEDIA_ROOT укажите путь до созданной директории media.
+11. Назначьте текущего пользователя владельцем директории media, чтобы Django-приложение могло сохранять картинки. Для этого используйте команду chown:
+```
+ # Подставьте в команду имя своего пользователя.
+ sudo chown -R <имя_пользователя> /var/www/kittygram/media/
+ 
 ```
 ### Настройка фронтенд-приложения
 1. Находясь в директории с фронтенд-приложением, установите зависимости для него:
@@ -89,7 +122,7 @@ npm run build
 3. Скопируйте статику фронтенд-приложения в директорию по умолчанию:
 Точка после build важна — будет скопировано содержимое директории.
 ```
-sudo cp -r путь_к_директории_с_фронтенд-приложением/build/. /var/www/имя_проекта/
+sudo cp -r путь_к_директории_с_фронтенд-приложением/build/. /var/www/kittygram/
 ```
 ### Установка и настройка WSGI-сервера Gunicorn
 1. Подключитесь к удалённому серверу, активируйте виртуальное окружение
@@ -154,7 +187,7 @@ sudo nano /etc/nginx/sites-enabled/default
 …очистите содержимое файла и запишите новые настройки:
 ```
 server { 
-    listen 80;
+	listen 80;
 	server_name ваш_домен; 
 	
 	location /api/ { 

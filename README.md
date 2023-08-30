@@ -1,6 +1,6 @@
 # Kittygram
 ### Описание 
-Благодаря этому проекту, можно на сайт [Kittygram](https://kitty-gramm.ddns.net/) добавлять карточки котиков, с их описанием (цвет, год рождения, фотография) и указывать, чем они отличились.
+Проект c backend на Django c установкой на удаленный сервер.Благодаря этому проекту, можно на сайт [Kittygram](https://kitty-gramm.ddns.net/) добавлять карточки котиков, с их описанием (цвет, год рождения, фотография) и указывать, чем они отличились.
 ### Технологии 
 
 - Python 3
@@ -272,7 +272,8 @@ sudo systemctl restart nginx
 ```
 
 ### Автор 
-Виктор Шустров 
+[Виктор Шустров](https://github.com/shustrov19/) 
 
 ### Контакты
-email: shustrov19@gmail.com
+Email: shustrov19@gmail.com
+Telegram: @Shustrov19
